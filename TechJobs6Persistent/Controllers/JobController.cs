@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TechJobs6Persistent.Data;
 using TechJobs6Persistent.Models;
@@ -21,6 +22,8 @@ namespace TechJobs6Persistent.Controllers
             context = dbContext;
         }
 
+        
+
         // GET: /<controller>/
         public IActionResult Index()
         {
@@ -31,14 +34,44 @@ namespace TechJobs6Persistent.Controllers
 
         public IActionResult Add()
         {
-            return View();
-        }
+            List<Employer> employers = context.Employers.ToList();
+           //public List<SelectListItem> AllEmployers = context.Employers.ToList();
 
+
+        var JVM = new AddJobViewModel(employers);
+            
+            
+            return View(JVM);
+         }
+
+       
         [HttpPost]
-        public IActionResult ProcessAddJobForm()
+        public IActionResult Add(AddJobViewModel addJobViewModel)
         {
-            return View();
+            if (ModelState.IsValid)
+            {
+
+                Employer employer = context.Employers.Find(addJobViewModel.EmployersId);
+
+                Job job = new Job()
+                {
+                   
+                    Name = addJobViewModel.Name,
+                    Employer = employer
+                };
+
+                context.Jobs.Add(job);             
+                context.SaveChanges();
+
+                return Redirect("/Jobs");
+            }
+
+            return View("Add", addJobViewModel);
+
+           
         }
+        
+
 
         public IActionResult Delete()
         {

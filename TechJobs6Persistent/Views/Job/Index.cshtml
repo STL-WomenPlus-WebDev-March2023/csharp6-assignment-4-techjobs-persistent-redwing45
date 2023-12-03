@@ -8,6 +8,12 @@
 
 <div class="text-center">
     <h1 class="display-4">Tech Jobs & Persistent Data</h1>
+
+
+    <p><a asp-controller="Job" asp-action="Add">Add Job</a></p>
+
+    <p><a asp-controller="Job" asp-action="Delete">Delete Job</a></p>
+
     @if (Model.Count == 0)
     {
         <p>No jobs yet!</p>
@@ -29,7 +35,3 @@
         </table>
     }
     </div>
-
-    <p><a asp-controller="Job" asp-action="Add">Add Job</a></p>
-
-    <p><a asp-controller="Job" asp-action="Delete">Delete Job</a></p>

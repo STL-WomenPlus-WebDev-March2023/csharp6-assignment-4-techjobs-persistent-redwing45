@@ -1,14 +1,33 @@
-﻿@using TechJobs6Persistent.ViewModels
+﻿@model AddJobViewModel
+@using TechJobs6Persistent.ViewModels
+@using TechJobs6Persistent.Models
 
 
 <h1>Add Job</h1>
 
 <form asp-controller="Job" asp-action="Add" method="post">
     <div class="form-group">
-        <label>Name</label>
-        <input class="form-control" />
+        <label> Name</label>
+        <input name="Name"class="form-control" />
         <span></span>
     </div>
+    <div class="form-group">
+        <label> All Employers</label>
+        <select name=" All Employers" id="Employers">
+          
+            @foreach(var e in Model.AllEmployers)
+            {
+                <option value="e.Name">
+                   
+                </option>
+            }
+
+        </select>
+        
+        </div>
+    
+        <a asp-controller="Employer" asp-action="Create">Add Employer</a>
+        
     <br />
 
     <input type="submit" value="Add Job" />

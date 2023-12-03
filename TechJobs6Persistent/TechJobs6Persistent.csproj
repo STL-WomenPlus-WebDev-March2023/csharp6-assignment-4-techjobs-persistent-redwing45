@@ -17,8 +17,6 @@
     <None Remove="Views\Job\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Data\" />
-    <Folder Include="ViewModels\" />
     <Folder Include="Views\Employer\" />
     <Folder Include="Views\Skill\" />
     <Folder Include="Views\Job\" />

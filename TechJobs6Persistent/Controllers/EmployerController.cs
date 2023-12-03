@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.Extensions.Logging;
 using TechJobs6Persistent.Data;
 using TechJobs6Persistent.Models;
 using TechJobs6Persistent.ViewModels;
@@ -13,31 +16,69 @@ using TechJobs6Persistent.ViewModels;
 namespace TechJobs6Persistent.Controllers
 {
     public class EmployerController : Controller
-    { 
+    {
+
+        private JobDbContext context;
+
+        public EmployerController(JobDbContext dbContext)
+        {
+            context = dbContext;
+        }
+
         // GET: /<controller>/
         [HttpGet]
         public IActionResult Index()
         {
-            return View();
+            List<Employer> employers = context.Employers.ToList();
+
+            return View(employers);
         }
 
         [HttpGet]
         public IActionResult Create()
         {
-            return View();
-        }
+            AddEmployerViewModel empViewMod = new AddEmployerViewModel();
 
+            return View(empViewMod);
+        }
+        
         [HttpPost]
-        public IActionResult ProcessCreateEmployerForm()
+        public IActionResult ProcessCreateEmployerForm(AddEmployerViewModel addEmployerViewModel)
         {
-            return View();
-        }
+            
+            if (ModelState.IsValid)
+            {
 
-        public IActionResult About(int id)
-        {
-            return View();
+                Employer employer = new Employer()
+                {
+                    Name = addEmployerViewModel.Name,
+                    Location = addEmployerViewModel.Location
+                };
+
+                context.Employers.Add(employer);
+                context.SaveChanges();
+
+                return Redirect("/Employer");
+            }
+
+            return View("Create", addEmployerViewModel);
+
+        }
+            /*
+             Employer employ = context.Employers.Find(AddEmployerViewModel);
+            */
+
+
+            public IActionResult About(int id)
+         {
+            Employer? employer = context.Employers
+                .Find(id);
+                
+
+                return View("About", employer);
+         }
+            
         }
 
     }
-}
-
+         
