@@ -60,7 +60,7 @@ namespace TechJobs6Persistent.Controllers
                     Employer = employer
                 };
 
-                context.Jobs.Add(job);             
+                context.Jobs.Add(job);
                 context.SaveChanges();
 
                 return Redirect("/Jobs");
