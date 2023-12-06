@@ -10,7 +10,7 @@ using TechJobs6Persistent.Data;
 namespace TechJobs6Persistent.Migrations
 {
     [DbContext(typeof(JobDbContext))]
-    [Migration("20231127050326_InitialMigration")]
+    [Migration("20231205015708_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -108,12 +108,17 @@ namespace TechJobs6Persistent.Migrations
             modelBuilder.Entity("TechJobs6Persistent.Models.Job", b =>
                 {
                     b.HasOne("TechJobs6Persistent.Models.Employer", "Employer")
-                        .WithMany()
+                        .WithMany("Jobs")
                         .HasForeignKey("EmployerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Employer");
+                });
+
+            modelBuilder.Entity("TechJobs6Persistent.Models.Employer", b =>
+                {
+                    b.Navigation("Jobs");
                 });
 #pragma warning restore 612, 618
         }

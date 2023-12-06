@@ -12,18 +12,8 @@
         <span></span>
     </div>
     <div class="form-group">
-        <label> All Employers</label>
-        <select name=" All Employers" id="Employers">
-          
-            @foreach(var e in Model.AllEmployers)
-            {
-                <option 
-                    value="e.Name">
-                </option>
-            }
-
-        </select>
-        
+        <label asp-for="EmployersId">Employer: </label>
+        <select asp-for="EmployersId" asp-items="Model.AllEmployers"></select>
         </div>
     
         <a asp-controller="Employer" asp-action="Create">Add Employer</a>

@@ -46,7 +46,7 @@ namespace TechJobs6Persistent.Controllers
         public IActionResult ProcessCreateEmployerForm(AddEmployerViewModel addEmployerViewModel)
         {
             
-            if (ModelState.IsValid)
+             if (ModelState.IsValid)
             {
 
                 Employer employer = new Employer()
